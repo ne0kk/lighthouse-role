@@ -1,0 +1,35 @@
+
+    - name: Install nginx
+      become: true
+      yum:
+        name: nginx
+    - name: Install unzip
+      become: true
+      yum:
+        name: unzip
+
+    - name: Get lighthouse
+      get_url:
+        url: "https://github.com/VKCOM/lighthouse/archive/refs/heads/master.zip"
+        dest: /usr/tmp/lighthouse.zip
+        mode: '0644'
+
+
+
+
+    - name: Unarchive lighthouse
+      become: true
+      unarchive:
+        src: /usr/tmp/lighthouse.zip
+        dest: /usr/share/nginx/
+        remote_src: yes
+
+    # - name: Temp file nginx
+    #   become: true
+    #   template:
+    #     src: nginx.conf.yml
+    #     dest: /etc/nginx/nginx.conf
+    #     mode: '0644'
+    #   notify:
+    #     - nginx start
+      
